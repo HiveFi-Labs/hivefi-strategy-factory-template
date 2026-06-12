@@ -74,6 +74,9 @@ python3 --version
    - **Windows は最初の画面で「Add python.exe to PATH」に必ずチェックを入れる**（これを忘れると後で詰まる）
 3. 終わったらターミナルを開き直して、もう一度バージョン確認
 
+> **コマンド名の使い分け**: Mac では常に `python3`、Windows では常に `python` と打つ。
+> 手順 6 で venv を有効化した後は、どちらの OS でもどちらの名前でも動く。
+
 ---
 
 ## 4. このリポジトリを自分の PC にコピーする (git clone)
@@ -114,7 +117,8 @@ notepad .env
 テキストエディタが開くので、`HIVEFI_API_KEY=` / `CLICKHOUSE_USER=` / `CLICKHOUSE_PASSWORD=`
 の 3 行の `=` の右側を、受け取った値に書き換えて保存して閉じる。
 （`xxxx...` のようなダミー文字が入っている場合はそれを消して置き換える。値の前後に
-スペースや引用符は付けない）
+スペースや引用符は付けない。**値は手で打たず、受け取ったものをコピー & ペーストする** —
+Mac のテキストエディットは手入力すると引用符などを勝手に変換することがある）
 
 > `.env` は自分の PC の中だけで使われる。git の管理対象から除外済みなので、
 > 誤って公開される心配は基本的にないが、ファイル自体を人に送らないこと。
@@ -150,7 +154,7 @@ pip install -e ".[dev]"
 
 ## 7. 動作確認
 
-3 つのコマンドを順に実行する:
+4 つのコマンドを順に実行する。それぞれ確認している内容が違う:
 
 ```bash
 hivefi-factory --version
@@ -165,9 +169,17 @@ hivefi-factory validate --all
 ```bash
 hivefi-factory health
 ```
-→ エラーなく応答が返れば OK（HiveFi のサーバと通信できた = `.env` の API キーが正しい）。
+→ エラーなく応答が返れば OK（HiveFi のサーバと通信できた。この確認に API キーは使われない）。
 
-3 つとも通ったら環境構築は完了。
+```bash
+hivefi-factory strategy list
+```
+→ エラーなく一覧（最初は空でよい）が返れば OK（**`.env` の API キーが正しい**）。
+
+4 つとも通ったら環境構築は完了。
+
+> ClickHouse の 2 値（`CLICKHOUSE_USER` / `CLICKHOUSE_PASSWORD`）はバックテスト結果の
+> 取得時に初めて使われる。後でその種のコマンドがエラーになったら `.env` のこの 2 値を見直す。
 
 ---
 
@@ -185,12 +197,23 @@ curl -fsSL https://claude.ai/install.sh | bash
 irm https://claude.ai/install.ps1 | iex
 ```
 
-終わったら**ターミナルを開き直して**、プロジェクトフォルダに戻り、起動する:
+終わったら**ターミナルを開き直して**、プロジェクトフォルダに戻り、venv を有効化してから起動する:
 
+**Mac:**
 ```bash
 cd my-strategies
+source .venv/bin/activate
 claude
 ```
+
+**Windows:**
+```powershell
+cd my-strategies
+.venv\Scripts\Activate.ps1
+claude
+```
+
+(venv の有効化を忘れると、agent が `hivefi-factory` コマンドを実行できずエラーになる)
 
 初回はブラウザが自動で開いてログイン画面になるので、Claude アカウント
 (Pro / Max) でログインする。ブラウザが開かない場合はターミナルに表示される
@@ -268,6 +291,12 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 `pip install -e .[dev]` を引用符なしで打った場合に出る。
 このガイドの通り `pip install -e ".[dev]"` と**引用符付き**で実行する。
 
+### `git clone` で `destination path 'my-strategies' already exists` と出る
+同名のフォルダが既にある（コマンドを 2 回打った場合など）。すでに手順 4 を
+終えているなら clone は不要なので `cd my-strategies` だけ実行して次へ進む。
+壊れた状態でやり直したい場合は、フォルダを削除するか別の名前
+（`my-strategies-2` など）で clone し直す。
+
 ### Python のインストール後もバージョンが古いまま
 ターミナルを開き直す。Windows の場合は「Add python.exe to PATH」の
 チェックを忘れた可能性があるので、インストーラをもう一度実行して
@@ -289,5 +318,7 @@ Claude Code が動く状態であれば、**エラーメッセージをそのま
 | リポジトリ | プロジェクトのファイル一式。GitHub 上に置いてあるものを git clone で PC にコピーする |
 | venv | このプロジェクト専用の Python 環境。他のソフトと干渉しないための仕切り |
 | `.env` | 認証情報を書いておく自分専用の設定ファイル。公開されない |
+| API キー (`HIVEFI_API_KEY`) | 戦略の提出・一覧などに使う、パスワードのような文字列 |
+| `CLICKHOUSE_USER` / `PASSWORD` | バックテスト結果やデータを読むための、もう 1 組の認証情報。API キーとは別物なので 3 つ全部必要 |
 | agent / Claude Code | 日本語の依頼を理解してコマンド実行やコード作成を代行してくれる AI |
 | バックテスト (BT) | 戦略を過去の相場データで動かして成績を測ること |

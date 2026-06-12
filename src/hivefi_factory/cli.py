@@ -424,11 +424,20 @@ def _cmd_signals(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------------------
 
 def _cmd_health(_args: argparse.Namespace) -> int:
-    from .client import StrategyApiClient
+    # /health is unauthenticated; build a bare HTTP client so the check works
+    # before HIVEFI_API_KEY is configured.
+    import httpx
 
-    with StrategyApiClient() as api:
-        body = api.health()
-    print(json.dumps(body, indent=2))
+    from .config import load_settings
+
+    settings = load_settings()
+    resp = httpx.get(
+        f"{settings.api_base}/health",
+        headers={"Accept": "application/json"},
+        timeout=30.0,
+    )
+    resp.raise_for_status()
+    print(json.dumps(resp.json(), indent=2))
     return 0
 
 
