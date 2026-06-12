@@ -3,6 +3,13 @@
 HiveFi Strategy Contest 参加者向けの **template repo**。
 Claude Code または OpenAI Codex CLI で開くと、同梱の `CLAUDE.md` / `AGENTS.md` / `.claude/skills/` を agent が読込み、自然言語で戦略開発 → 公式 submit → ClickHouse 直接読取での結果分析まで回せる。
 
+> **はじめての人へ**: ターミナルや Python に慣れていない場合は、コピペだけで
+> 環境構築できる **[導入ガイド（初心者向け）](docs/SETUP_GUIDE.md)** から始める。
+> 以下の Onboarding はエンジニア向けの短縮版。
+
+導入は **git clone のみ**。PyPI では配布していないので、`pip install hivefi-factory`
+のような形でインストールしない（同名 package があっても本物ではない）。
+
 API は HiveFi のマルチテナント Strategy API (`https://strategy-api.hivefi.xyz`、X-API-Key 認証)。バックテストは `POST /v1/strategies/{id}/code` の upload で 2 段ジョブパイプライン (signal-gen → backtest) が自動 trigger され、結果は ClickHouse Cloud (`backtest_runs / backtest_timeseries / backtest_trades / user_signals / backtest_jobs`) に書き込まれる。ROW POLICY で自分のテナント分しか見えないので、SELECT に owner 句を付ける必要はない。
 
 ## 前提条件
@@ -50,7 +57,7 @@ cp .env.example .env
 
 # 3) 依存導入 + パッケージ install
 python -m venv .venv && source .venv/bin/activate
-pip install -e .[dev]
+pip install -e ".[dev]"
 
 # 4) CLI 動作確認 (network 不要)
 hivefi-factory --version
@@ -86,6 +93,7 @@ claude
 │   └── symphony/          # Strategy Factory Symphony orchestrator 運用
 ├── .agents/skills/        # AGENTS.md 系 (.claude/skills/ と bitwise 同期)
 ├── tools/symphony/        # Symphony workspace bootstrap / batch validator
+├── docs/                  # 導入ガイド (初心者向け) / 偽陽性コントロール等のドキュメント
 ├── configs/               # strategy config JSON (<id>.json)
 ├── extensions/            # strategy code (<id>.py)
 ├── data/                  # データ取得の出力先 (.gitignore)
