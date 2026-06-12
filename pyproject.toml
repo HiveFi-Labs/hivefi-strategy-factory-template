@@ -2,6 +2,8 @@
 name = "hivefi-strategy-factory"
 version = "0.2.0"
 description = "HiveFi strategy contest workspace (strategy factory for participants)"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 dependencies = [
     "pandas>=2.0",
@@ -29,7 +31,7 @@ analysis = [
 hivefi-factory = "hivefi_factory.cli_entry:main"
 
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]

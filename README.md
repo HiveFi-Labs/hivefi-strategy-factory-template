@@ -207,4 +207,6 @@ mise exec -- ./bin/symphony "$HIVEFI_STRATEGY_FACTORY_SOURCE/WORKFLOW.md" --port
 
 ## ライセンス / 利用条件
 
-[TODO]
+[MIT License](LICENSE)。コード・skill・ドキュメントは自由に利用・改変・再配布できる。
+HiveFi Strategy API / ClickHouse への接続には運営発行の credential が別途必要で、
+その利用条件はコンテスト規約に従う。
