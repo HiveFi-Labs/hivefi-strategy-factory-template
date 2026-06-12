@@ -1,0 +1,77 @@
+# secrets
+.env
+*.env
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+dist/
+build/
+.pytest_cache/
+
+# hivefi data / outputs
+data/
+notebooks/outputs/
+notebooks/.ipynb_checkpoints/
+artifacts/
+
+# editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# claude local settings
+.claude/settings.local.json
+
+# local-only directories
+issues/
+
+# ad-hoc local scripts under tools/
+tools/batch20_*.py
+tools/gen_strategies_*.py
+tools/job_error_diag.py
+
+# artifacts: ignore by default, allowlist existing tracked subdirs
+artifacts/*
+!artifacts/stagerev-5d-D-W-hl-all-ls-v2/
+!artifacts/trendscan-30d-D-W-hl-all-ls-v2/
+
+# strategy configs / extensions: ignore by default, allowlist existing tracked ones
+configs/*.json
+extensions/*.py
+!configs/barriermeta-20d-D-W-hl-all-ls-v2.json
+!configs/betsizemom-20d-D-W-hl-all-ls-v2.json
+!configs/btcanchmom-30d-D-W-hl-all-ls-v2.json
+!configs/cusumbrk-20d-D-W-hl-all-ls-v2.json
+!configs/demo-momentum-D-W-hl-all-ls-v2.json
+!configs/entropybias-20d-D-W-hl-all-ls-v2.json
+!configs/example-mom-D-W-hl-btc-ls-v2.json
+!configs/ffdmom-40d-D-W-hl-all-ls-v2.json
+!configs/lowvol-20d-D-W-hl-all-ls-v2.json
+!configs/persmom-20d-D-W-hl-all-ls-v2.json
+!configs/rebal-eqw-D-W-hl-all-lo-v2.json
+!configs/resbtc-30d-D-W-hl-all-ls-v2.json
+!configs/reversal-5d-D-W-hl-all-ls-v2.json
+!configs/stagerev-5d-D-W-hl-all-ls-v2.json
+!configs/symphony-30d-D-W-hl-all-ls-v2.json
+!configs/trendscan-30d-D-W-hl-all-ls-v2.json
+!extensions/barriermeta-20d-D-W-hl-all-ls-v2.py
+!extensions/betsizemom-20d-D-W-hl-all-ls-v2.py
+!extensions/btcanchmom-30d-D-W-hl-all-ls-v2.py
+!extensions/cusumbrk-20d-D-W-hl-all-ls-v2.py
+!extensions/demo-momentum-D-W-hl-all-ls-v2.py
+!extensions/entropybias-20d-D-W-hl-all-ls-v2.py
+!extensions/example-mom-D-W-hl-btc-ls-v2.py
+!extensions/ffdmom-40d-D-W-hl-all-ls-v2.py
+!extensions/lowvol-20d-D-W-hl-all-ls-v2.py
+!extensions/persmom-20d-D-W-hl-all-ls-v2.py
+!extensions/rebal-eqw-D-W-hl-all-lo-v2.py
+!extensions/resbtc-30d-D-W-hl-all-ls-v2.py
+!extensions/reversal-5d-D-W-hl-all-ls-v2.py
+!extensions/stagerev-5d-D-W-hl-all-ls-v2.py
+!extensions/symphony-30d-D-W-hl-all-ls-v2.py
+!extensions/trendscan-30d-D-W-hl-all-ls-v2.py

@@ -1,0 +1,11 @@
+{
+  "strategy_id": "demo-momentum-D-W-hl-all-ls-v2",
+  "title": "Demo Momentum D W Hl All Ls V2",
+  "description": "TODO: describe the hypothesis and expected behavior.",
+  "exchange": "hyperliquid",
+  "universe": "hl_all",
+  "rebalance_freq": "W-FRI",
+  "rebalance_enabled": true,
+  "auto_close_missing": true,
+  "warmup_periods": 60
+}

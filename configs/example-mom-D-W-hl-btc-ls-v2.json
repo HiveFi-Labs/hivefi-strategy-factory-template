@@ -1,0 +1,11 @@
+{
+  "strategy_id": "example-mom-D-W-hl-btc-ls-v2",
+  "title": "Example Momentum",
+  "description": "20 日 return top/bottom 3 で long-short、参考用の最小例",
+  "exchange": "hyperliquid",
+  "universe": ["BTC", "ETH", "SOL", "AVAX", "BNB", "ARB", "OP", "MATIC"],
+  "rebalance_freq": "W-FRI",
+  "rebalance_enabled": true,
+  "auto_close_missing": true,
+  "warmup_periods": 30
+}
